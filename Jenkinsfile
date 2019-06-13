@@ -45,11 +45,17 @@ def pipeline = new io.bravo.Pipeline()
     // def image_tags_list = pipeline.getMapValues(image_tags_map)
 
 
-    def testImage = docker.build("test-image")
+    stage('Build Contaienr') {
 
-    testImage.inside {
-        sh 'echo "Hello!!"'
+      def testImage = docker.build("test-image")
+
+      testImage.inside {
+          sh 'echo "Hello!!"'
+      }
+
     }
+
+
 
     // stage ('publish container') {
     //
