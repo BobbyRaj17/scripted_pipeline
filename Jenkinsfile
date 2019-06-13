@@ -45,50 +45,52 @@ def pipeline = new io.bravo.Pipeline()
     // def image_tags_list = pipeline.getMapValues(image_tags_map)
 
 
-    stage('Build Contaienr') {
-
-      def testImage = docker.build("test-image")
-
-      testImage.inside {
-          sh 'echo "Hello!!"'
-      }
-
-    }
-
-
-
-    // stage ('publish container') {
+    // stage('publish container') {
     //
-    //   container('docker') {
     //
-    //     // perform docker login to container registry as the docker-pipeline-plugin doesn't work with the next auth json format
-    //     // withCredentials([[$class          : 'UsernamePasswordMultiBinding', credentialsId: config.container_repo.jenkins_creds_id,
-    //     //                 usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-    //     //   sh "docker login -u ${env.USERNAME} -p ${env.PASSWORD} ${config.container_repo.host}"
-    //     // }
     //
-    //     // build and publish container
-    //     pipeline.containerBuildPub(
-    //         dockerfile: config.container_repo.dockerfile,
-    //         host      : config.container_repo.host,
-    //         acct      : acct,
-    //         repo      : config.container_repo.repo,
-    //         tags      : image_tags_list,
-    //         auth_id   : config.container_repo.jenkins_creds_id,
-    //         image_scanning: config.container_repo.image_scanning
-    //     )
+    //   def testImage = docker.build("test-image")
     //
-    //     // anchore image scanning configuration
-    //     // println "Add container image tags to anchore scanning list"
-    //
-    //     // def tag = image_tags_list.get(0)
-    //     // def imageLine = "${config.container_repo.host}/${acct}/${config.container_repo.repo}:${tag}" + ' ' + env.WORKSPACE + '/Dockerfile'
-    //     // writeFile file: 'anchore_images', text: imageLine
-    //     // anchore name: 'anchore_images', inputQueries: [[query: 'list-packages all'], [query: 'list-files all'], [query: 'cve-scan all'], [query: 'show-pkg-diffs base']]
-    //
+    //   testImage.inside {
+    //       sh 'echo "Hello!!"'
     //   }
     //
     // }
+
+
+
+    stage ('publish container') {
+
+      container('docker:1.12.6') {
+
+        // perform docker login to container registry as the docker-pipeline-plugin doesn't work with the next auth json format
+        // withCredentials([[$class          : 'UsernamePasswordMultiBinding', credentialsId: config.container_repo.jenkins_creds_id,
+        //                 usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+        //   sh "docker login -u ${env.USERNAME} -p ${env.PASSWORD} ${config.container_repo.host}"
+        // }
+
+        // build and publish container
+        pipeline.containerBuildPub(
+            dockerfile: config.container_repo.dockerfile,
+            host      : config.container_repo.host,
+            acct      : acct,
+            repo      : config.container_repo.repo,
+            tags      : image_tags_list,
+            auth_id   : config.container_repo.jenkins_creds_id,
+            image_scanning: config.container_repo.image_scanning
+        )
+
+        // anchore image scanning configuration
+        // println "Add container image tags to anchore scanning list"
+
+        // def tag = image_tags_list.get(0)
+        // def imageLine = "${config.container_repo.host}/${acct}/${config.container_repo.repo}:${tag}" + ' ' + env.WORKSPACE + '/Dockerfile'
+        // writeFile file: 'anchore_images', text: imageLine
+        // anchore name: 'anchore_images', inputQueries: [[query: 'list-packages all'], [query: 'list-files all'], [query: 'cve-scan all'], [query: 'show-pkg-diffs base']]
+
+      }
+
+    }
 
   }
 // }
