@@ -10,7 +10,7 @@ pipeline {
             steps {
                 sh 'docker version'
                 sh 'pwd'
-                sh 'whoami'
+                sh 'hostname'
                 sh 'ls -ltr'
             }
         }
