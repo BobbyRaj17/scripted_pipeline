@@ -48,7 +48,7 @@ def pipeline = new io.bravo.Pipeline()
     def testImage = docker.build("test-image")
 
     testImage.inside {
-        sh 'Heloo!!'
+        sh 'echo "Hello!!"'
     }
 
     // stage ('publish container') {
