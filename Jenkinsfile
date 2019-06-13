@@ -9,6 +9,9 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'docker version'
+                sh 'pwd'
+                sh 'whoami'
+                sh 'ls -ltr'
             }
         }
     }
