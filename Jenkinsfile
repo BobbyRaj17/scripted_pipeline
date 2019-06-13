@@ -15,5 +15,15 @@ pipeline {
                 sh 'docker build -t test .'
             }
         }
+    stage('Helm') {
+      agent {
+        docker {
+          image 'lachlanevenson/k8s-helm:v2.6.0'
+              }
+          }
+      steps {
+        sh 'which helm'
+          }
+       }
     }
 }
