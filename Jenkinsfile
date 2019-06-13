@@ -12,6 +12,7 @@ pipeline {
                 sh 'pwd'
                 sh 'hostname'
                 sh 'ls -ltr'
+                sh 'docker build -t test .'
             }
         }
     }
