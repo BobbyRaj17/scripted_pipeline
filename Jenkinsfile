@@ -33,22 +33,22 @@ def pipeline = new io.bravo.Pipeline()
     }
 
     // set additional git envvars for image tagging
-    pipeline.gitEnvVars()
+    // pipeline.gitEnvVars()
 
 
     def acct = pipeline.getContainerRepoAcct(config)
 
     // tag image with version, and branch-commit_id
-    def image_tags_map = pipeline.getContainerTags(config)
+    // def image_tags_map = pipeline.getContainerTags(config)
 
     // compile tag list
-    def image_tags_list = pipeline.getMapValues(image_tags_map)
+    // def image_tags_list = pipeline.getMapValues(image_tags_map)
 
 
     def testImage = docker.build("test-image", "./Dockerfile")
 
     testImage.inside {
-        sh 'make test'
+        sh 'Heloo!!'
     }
 
     // stage ('publish container') {
