@@ -1,0 +1,19 @@
+{
+  "container_repo": {
+    "host": "gcr.io",
+    "master_acct": "lachie83",
+    "alt_acct": "lachie83",
+    "jenkins_creds_id": "gcr_creds",
+    "repo": "bobtestproject",
+    "dockeremail": ".",
+    "dockerfile": "./",
+    "image_scanning": false
+  },
+  "pipeline": {
+      "enabled": true,
+      "debug": false,
+      "library": {
+        "branch": "dev"
+      }
+  }
+}
