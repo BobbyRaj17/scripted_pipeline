@@ -40,10 +40,11 @@ pipeline {
         }
         stage('Front-end') {
             agent {
-                docker { image 'node:7-alpine' }
+                docker { image 'lachlanevenson/k8s-helm:v2.6.0' }
             }
             steps {
-                sh 'node --version'
+                sh 'which helm'
+                sh 'ls'
             }
         }
     }
