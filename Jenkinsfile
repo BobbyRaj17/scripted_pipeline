@@ -1,50 +1,25 @@
-// pipeline {
-//     agent {
-//         docker {
-//             image 'docker:1.12.6'
-//             args '-v /var/run/docker.sock:/var/run/docker.sock'
-//         }
-//     }
-//     stages {
-//         stage('Build') {
-//             steps {
-//                 sh 'docker version'
-//                 sh 'pwd'
-//                 sh 'hostname'
-//                 sh 'ls -ltr'
-//                 sh 'docker build -t test .'
-//             }
-//         }
-//     stage('Helm') {
-//       agent {
-//         docker {
-//           image 'lachlanevenson/k8s-helm:v2.6.0'
-//               }
-//           }
-//       steps {
-//         sh 'which helm'
-//           }
-//        }
-//     }
-// }
 pipeline {
     agent none
     stages {
-        stage('Back-end') {
+        stage('Build') {
             agent {
-                docker { image 'maven:3-alpine' }
+              image 'docker:1.12.6'
+              args '-v /var/run/docker.sock:/var/run/docker.sock'
             }
             steps {
-                sh 'mvn --version'
+                sh 'docker version'
+                sh 'docker build -t test .'
             }
         }
-        stage('Front-end') {
+        stage('Helm') {
             agent {
-                docker { image 'lachlanevenson/k8s-helm:v2.6.0' }
+                docker { image 'alpine/helm:2.14.0' }
+                args '-v ${workspace}:/apps'
+                args '-v ~/.kube/config:/root/.kube/config'
             }
             steps {
                 sh 'which helm'
-                sh 'ls'
+                sh 'helm init'
             }
         }
     }
