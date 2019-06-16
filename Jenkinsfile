@@ -26,6 +26,9 @@
 // }
 pipeline {
     agent none
+    environment {
+      PATH = "/usr/local/bin/docker:$PATH"
+    }
     stages {
       stage('source') {
           agent any
