@@ -27,6 +27,10 @@
 pipeline {
     agent none
     stages {
+      stage('source') {
+          steps {
+              sh 'source /etc/profile'
+        }
         stage('Back-end') {
             agent {
                 docker {
