@@ -28,6 +28,7 @@ pipeline {
     agent none
     stages {
       stage('source') {
+          agent any
           steps {
               sh 'source /etc/profile'
             }
