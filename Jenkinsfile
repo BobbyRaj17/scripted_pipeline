@@ -26,14 +26,11 @@
 // }
 pipeline {
     agent none
-    environment {
-      PATH = "/usr/local/bin/docker:$PATH"
-    }
     stages {
       stage('source') {
           agent any
           steps {
-              sh 'source /etc/profile'
+              sh 'PATH="$PATH":/home/user/bin'
             }
         }
         stage('Back-end') {
