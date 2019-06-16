@@ -30,6 +30,7 @@ pipeline {
       stage('source') {
           steps {
               sh 'source /etc/profile'
+            }
         }
         stage('Back-end') {
             agent {
