@@ -25,7 +25,9 @@
 //     }
 // }
 pipeline {
-    agent { label 'dockerserver' }
+    agent {
+        label 'docker'
+    }
     stages {
       stage('source') {
           agent any
